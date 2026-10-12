@@ -1,29 +1,25 @@
-import org.example.ImportoNonValidoException;
+import org.example.ContoBancario;
 import org.example.SaldoInsufficienteException;
-
 import static java.lang.IO.println;
-import static java.lang.IO.readln;
-import static java.lang.Integer.parseInt;
 
 void main() {
-    int saldo = parseInt(readln("Inserisci il saldo del tuo conto corrente: "));
-    println("Passa il tempo...");
-    int prelievo = parseInt(readln("Inserisci la cifra che vuoi prelevare: "));
+    ContoBancario contoCorrente = new ContoBancario(413.31);
     try {
-        saldo -= prelievo;
-        if(saldo < 0) {
-            throw new SaldoInsufficienteException("Saldo attuale: " + saldo + "\nCifra richiesta: " + prelievo);
-        }
+        contoCorrente.preleva(500.00);
     } catch (SaldoInsufficienteException e) {
-        e.getMessage();
+        println(e.getMessage());
     } finally {
         try {
-            if(prelievo <= 0) {
-                throw new ImportoNonValidoException("Stai effettuando un prelievo nullo");
+            contoCorrente.preleva(-500.00);
+        } catch (Exception e) {
+            println(e.getMessage());
+        } finally {
+            try {
+                contoCorrente.preleva(200.00);
+                println("Saldo attuale: " + contoCorrente.saldo);
+            } catch (SaldoInsufficienteException e) {
+                println(e.getMessage());
             }
-        } catch (ImportoNonValidoException e) {
-            e.getMessage();
         }
     }
-
 }

@@ -1,17 +1,22 @@
-package org.example;
+import org.example.SaldoInsufficienteException;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    static void main() {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        IO.println(String.format("Hello and welcome!"));
+import static java.lang.IO.println;
+import static java.lang.IO.readln;
+import static java.lang.Integer.parseInt;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            IO.println("i = " + i);
+void main() {
+    int saldo = parseInt(readln("Inserisci il saldo del tuo conto corrente: "));
+    println("Passa il tempo...");
+    int prelievo = parseInt(readln("Inserisci la cifra che vuoi prelevare: "));
+    try {
+        saldo -= prelievo;
+        if(saldo < 0) {
+            throw new SaldoInsufficienteException("Saldo attuale: " + saldo + "\nCifra richiesta: " + prelievo);
         }
+    } catch (SaldoInsufficienteException e) {
+        e.getMessage();
+    } finally {
+
     }
+
 }

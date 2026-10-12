@@ -1,3 +1,4 @@
+import org.example.ImportoNonValidoException;
 import org.example.SaldoInsufficienteException;
 
 import static java.lang.IO.println;
@@ -16,7 +17,13 @@ void main() {
     } catch (SaldoInsufficienteException e) {
         e.getMessage();
     } finally {
-
+        try {
+            if(prelievo <= 0) {
+                throw new ImportoNonValidoException("Stai effettuando un prelievo nullo");
+            }
+        } catch (ImportoNonValidoException e) {
+            e.getMessage();
+        }
     }
 
 }
